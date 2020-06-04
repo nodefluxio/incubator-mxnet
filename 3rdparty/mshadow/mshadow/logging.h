@@ -158,21 +158,17 @@ class DateLogger {
 class LogMessage {
  public:
   LogMessage(const char* file, int line)
-      :
 #ifdef __ANDROID__
+      :
         log_stream_(std::cout)
-#else
-        log_stream_(std::cerr)
 #endif
   {
-    log_stream_ << "[" << pretty_date_.HumanDate() << "] " << file << ":"
-                << line << ": ";
   }
-  ~LogMessage() { log_stream_ << "\n"; }
+  ~LogMessage() { }
   std::ostream& stream() { return log_stream_; }
 
  protected:
-  std::ostream& log_stream_;
+  std::ostringstream log_stream_;
 
  private:
   DateLogger pretty_date_;
